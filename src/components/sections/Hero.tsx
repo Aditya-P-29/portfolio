@@ -3,12 +3,9 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Mail } from "lucide-react";
-import { FaGithub } from "react-icons/fa"
+import { FaGithub } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
-
-
-
 
 const Hero = () => {
   return (
@@ -22,26 +19,39 @@ const Hero = () => {
           <h1 className="text-3xl md:text-4xl font-bold">
             Hi, I'm <span className="text-primary">Aditya Poddar</span>
           </h1>
-          <p className="mt-3 text-xl md:text-2xl mb-6">Full Stack Developer crafting modern web experiencs</p>
+          <p className="mt-3 text-xl md:text-2xl mb-6">
+            A Full Stack Developer passionate about crafting modern web
+            experiences that are fast, scalable, and secure. With expertise in
+            the MERN stack, Next.js, and cloud infrastructure.
+          </p>
           <div className="flex gap-4">
             <Button variant={"default"} className="gap-2 rounded-2xl">
-                <Mail className="w-4 h-4"/>
-                Contact Me
+              <Mail className="w-4 h-4" />
+              Contact Me
             </Button>
 
             <Link href="https://github.com/Aditya-P-29" target="_blank">
-            <Button variant={"outline"} className="gap-2 rounded-2xl">
+              <Button variant={"outline"} className="gap-2 rounded-2xl hover:bg-gray-600">
                 <FaGithub size={24} color="#fff" />
                 Github
-            </Button>
+              </Button>
             </Link>
           </div>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, x: 30 }}
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }} className="flex justify-center">
-            <Image alt="Hero image" src="/hero-image.svg" width={550} height={600} priority/>
+          transition={{ duration: 0.5 }}
+          className="flex justify-center"
+        >
+          <Image
+            alt="Hero image"
+            src="/hero-image.svg"
+            width={600}
+            height={600}
+            priority
+          />
         </motion.div>
       </div>
     </section>
