@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Download, Menu, X } from "lucide-react";
 import Link from "next/link";
@@ -7,6 +7,16 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const [isScrolled, SetIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      SetIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("Scroll", handleScroll);
+    return () => window.removeEventListener("Scroll", handleScroll);
+  }, []);
 
   const menuItems = [
     { label: "About", href: "#about" },
@@ -17,7 +27,9 @@ const Header = () => {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-background">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-background ${isScrolled ? "bg-background/80 backdrop-blur-md border-b" : " "}`}
+    >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -36,14 +48,14 @@ const Header = () => {
                 {item.label}
               </a>
             ))}
-            <Button
-              variant="default"
-              size="sm"
-              className="gap-2 bg-primary text-primary-foreground rounded-2xl hover:bg-primary-hover transition-colors"
+            <a
+              href="/resume/ADITYA PODDAR(resume).pdf"
+              download="Aditya_Poddar_Resume.pdf"
+              className="flex items-center gap-2 bg-primary text-primary-foreground rounded-xl px-2 py-1 hover:bg-primary-hover transition-colors"
             >
               <Download className="w-4 h-4" />
               Resume
-            </Button>
+            </a>
           </nav>
 
           {/* Mobile menu button */}
