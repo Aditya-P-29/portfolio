@@ -56,7 +56,7 @@
   --primary-foreground: #ffffff; /* White text on primary buttons */
   --primary-hover: oklch(0.55 0.15 240); /* darker blue */
 
-  --secondary: oklch(0.72 0.12 200); /* Teal */
+  --secondary: #363636; /* shadow gray */
   --secondary-foreground: oklch(0.15 0 0);
 
   --accent: oklch(0.82 0.18 90); /* Gold */

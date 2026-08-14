@@ -9,7 +9,7 @@ import Image from "next/image";
 
 const Hero = () => {
   return (
-    <section className="container mx-auto px-4 pt-32 pb-20 mt-15 pl-15">
+    <section className="container mx-auto px-4 pt-32 pb-20 mt-15 lg:pl-15">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
@@ -25,13 +25,13 @@ const Hero = () => {
             the MERN stack, Next.js, and cloud infrastructure.
           </p>
           <div className="flex gap-4">
-            <Button variant={"default"} className="gap-2 rounded-2xl">
+            <Button variant={"default"} className="gap-2 rounded-full object-cover">
               <Mail className="w-4 h-4" />
               Contact Me
             </Button>
 
             <Link href="https://github.com/Aditya-P-29" target="_blank">
-              <Button variant={"outline"} className="gap-2 rounded-2xl hover:bg-gray-600">
+              <Button variant={"secondary"} className="text-white gap-2 rounded-full object-cover hover:bg-gray-600">
                 <FaGithub size={24} color="#fff" />
                 Github
               </Button>

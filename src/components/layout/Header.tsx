@@ -51,7 +51,7 @@ const Header = () => {
             <a
               href="/resume/ADITYA PODDAR(resume).pdf"
               download="Aditya_Poddar_Resume.pdf"
-              className="flex items-center gap-2 bg-primary text-primary-foreground rounded-xl px-2 py-1 hover:bg-primary-hover transition-colors"
+              className="rounded-full object-cover flex items-center gap-2 bg-primary text-primary-foreground px-2 py-1 hover:bg-primary-hover transition-colors"
             >
               <Download className="w-4 h-4" />
               Resume
@@ -62,7 +62,7 @@ const Header = () => {
           <Button
             variant="ghost"
             size="icon"
-            className="md:hidden text-foreground"
+            className="md:hidden text-foreground "
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? (
