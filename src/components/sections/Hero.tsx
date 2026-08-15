@@ -25,13 +25,19 @@ const Hero = () => {
             the MERN stack, Next.js, and cloud infrastructure.
           </p>
           <div className="flex gap-4">
-            <Button variant={"default"} className="gap-2 rounded-full object-cover">
+            <Button
+              variant={"default"}
+              className="gap-2 rounded-full object-cover"
+            >
               <Mail className="w-4 h-4" />
               Contact Me
             </Button>
 
             <Link href="https://github.com/Aditya-P-29" target="_blank">
-              <Button variant={"secondary"} className="text-white gap-2 rounded-full object-cover hover:bg-gray-600">
+              <Button
+                variant={"secondary"}
+                className="text-white gap-2 rounded-full object-cover hover:bg-gray-600"
+              >
                 <FaGithub size={24} color="#fff" />
                 Github
               </Button>
@@ -45,13 +51,15 @@ const Hero = () => {
           transition={{ duration: 0.5 }}
           className="flex justify-center"
         >
-          <Image
-            alt="Hero image"
-            src="/hero-image.svg"
-            width={600}
-            height={600}
-            priority
-          />
+          <div className="relative w-[550px] h-[600px]">
+            <Image
+              src="/hero-image.svg"
+              alt="Hero image"
+              fill
+              priority
+              className="object-contain"
+            />
+          </div>
         </motion.div>
       </div>
     </section>

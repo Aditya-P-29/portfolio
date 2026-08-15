@@ -14,7 +14,7 @@ import { Badge } from "@/components/ui/badge";
 
 const Projects = () => {
   return (
-    <section id="projects" className="container mx-auto px-4 py-20">
+    <section id="projects" className="container mx-auto px-4 lg:py-20">
       <div className="text-center mb-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -31,7 +31,7 @@ const Projects = () => {
         </motion.div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 lg:mx-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 lg:mx-16">
         {projects.map((project, index) => (
           <motion.div
             key={project.title}

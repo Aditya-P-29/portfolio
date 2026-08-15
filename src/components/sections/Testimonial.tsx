@@ -39,7 +39,7 @@ const Testimonial = () => {
                   alt={`${testimonial.name} photo`}
                   src={testimonial.image}
                   height={400}
-                  width={350}
+                  width={400}
                   className="rounded-full object-cover"
                 />
                 <p className="text-lg font-semibold text-primary">
