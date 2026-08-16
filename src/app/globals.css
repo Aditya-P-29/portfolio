@@ -59,6 +59,8 @@
   --secondary: #363636; /* shadow gray */
   --secondary-foreground: oklch(0.15 0 0);
 
+  --tertiary : #0a66c2;
+
   --accent: oklch(0.82 0.18 90); /* Gold */
   --accent-foreground: oklch(0.15 0 0);
 

@@ -2,6 +2,11 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
+import { Toaster } from "sonner";
+
+
+
+
 
 const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
@@ -20,6 +25,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col">
         <Header />
         {children}
+        <Toaster/>
         </body>
     </html>
   );

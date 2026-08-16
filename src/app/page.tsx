@@ -4,6 +4,7 @@ import Skills from "@/components/sections/Skills";
 import Testimonial from "@/components/sections/Testimonial";
 import Projects from "@/components/sections/Projects";
 import Github from "@/components/sections/Github";
+import Contact from "@/components/sections/Contact";
 
 
 
@@ -16,6 +17,7 @@ export default function Home() {
       <Projects />
       {/*Github Status section*/}
       <Github />
+      <Contact />
     </main>
   );
 }
