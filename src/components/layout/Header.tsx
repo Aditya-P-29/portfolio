@@ -7,15 +7,34 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
 
-  const [isScrolled, SetIsScrolled] = useState(false);
-
+  // Scroll background effect
   useEffect(() => {
     const handleScroll = () => {
-      SetIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 50);
     };
-    window.addEventListener("Scroll", handleScroll);
-    return () => window.removeEventListener("Scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Active section highlight
+  useEffect(() => {
+    const sections = document.querySelectorAll("section[id]");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.6 }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
   }, []);
 
   const menuItems = [
@@ -26,9 +45,23 @@ const Header = () => {
     { label: "Contact", href: "#contact" },
   ];
 
+  // Smooth scroll handler for mobile
+  const handleMobileNavClick = (href: string) => {
+    const targetId = href.replace("#", "");
+    const target = document.getElementById(targetId);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-background ${isScrolled ? "bg-background/80 backdrop-blur-md border-b" : " "}`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-background/80 backdrop-blur-md border-b"
+          : "bg-background"
+      }`}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
@@ -43,7 +76,11 @@ const Header = () => {
               <a
                 href={item.href}
                 key={item.href}
-                className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+                className={`text-sm font-medium transition-colors ${
+                  activeSection === item.href.replace("#", "")
+                    ? "text-primary"
+                    : "text-foreground hover:text-primary"
+                }`}
               >
                 {item.label}
               </a>
@@ -51,7 +88,7 @@ const Header = () => {
             <a
               href="/resume/ADITYA PODDAR(resume).pdf"
               download="Aditya_Poddar_Resume.pdf"
-              className="rounded-full object-cover flex items-center gap-2 bg-primary text-primary-foreground px-2 py-1 hover:bg-primary-hover transition-colors"
+              className="rounded-full flex items-center gap-2 bg-primary text-primary-foreground px-2 py-1 hover:bg-primary-hover transition-colors"
             >
               <Download className="w-4 h-4" />
               Resume
@@ -61,8 +98,8 @@ const Header = () => {
           {/* Mobile menu button */}
           <Button
             variant="ghost"
-            size="icon"
-            className="md:hidden text-foreground "
+            size="sm"
+            className="md:hidden text-foreground"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? (
@@ -85,23 +122,26 @@ const Header = () => {
           >
             <nav className="container mx-auto px-4 py-4 flex flex-col gap-4">
               {menuItems.map((item) => (
-                <a
-                  href={item.href}
+                <button
                   key={item.href}
-                  className="text-sm font-medium text-foreground hover:text-primary transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={() => handleMobileNavClick(item.href)}
+                  className={`text-left text-sm font-medium transition-colors ${
+                    activeSection === item.href.replace("#", "")
+                      ? "text-primary"
+                      : "text-foreground hover:text-primary"
+                  }`}
                 >
                   {item.label}
-                </a>
+                </button>
               ))}
-              <Button
-                variant="default"
-                size="sm"
-                className="gap-2 bg-primary text-primary-foreground rounded-2xl hover:bg-primary-hover transition-colors"
+              <a
+                href="/resume/ADITYA PODDAR(resume).pdf"
+                download="Aditya_Poddar_Resume.pdf"
+                className="rounded-full flex items-center gap-2 bg-primary text-primary-foreground px-2 py-1 hover:bg-primary-hover transition-colors"
               >
                 <Download className="w-4 h-4" />
                 Resume
-              </Button>
+              </a>
             </nav>
           </motion.div>
         )}

@@ -9,7 +9,7 @@ import { testimonials } from "@/constants";
 
 const Testimonial = () => {
   return (
-    <section id="testimonial" className="container mx-auto py-20 px-4">
+    <section id="testimonials" className="container mx-auto py-20 px-4">
       <h2 className="text-3xl  font-bold mb-12 text-center">
         Client<span className="text-primary"> Testimonial</span>
       </h2>

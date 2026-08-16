@@ -134,3 +134,12 @@
     transform: translateY(0);
   }
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+section {
+  scroll-margin-top: 5rem; /* header height */
+}

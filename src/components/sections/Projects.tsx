@@ -14,7 +14,7 @@ import { Badge } from "@/components/ui/badge";
 
 const Projects = () => {
   return (
-    <section id="projects" className="container mx-auto px-4 lg:py-20">
+    <section id="project" className="container mx-auto px-4 lg:py-20">
       <div className="text-center mb-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

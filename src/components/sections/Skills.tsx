@@ -7,7 +7,7 @@ import Image from "next/image";
 
 const Skills = () => {
   return (
-    <div className="mt-18 mx-4 lg:mx-16 mb-15">
+    <section id="skills" className="mt-18 mx-4 lg:mx-16 mb-15" >
       <h2 className='text-3xl  font-bold mb-12 text-center'>Tech<span className='text-primary' > Stack</span></h2>
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -35,7 +35,7 @@ const Skills = () => {
         </Card>
       ))}
     </motion.div>
-    </div>
+    </section>
   );
 };
 
