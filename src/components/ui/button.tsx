@@ -11,12 +11,15 @@ const buttonVariants = cva(
         default: "bg-primary text-white hover:bg-primary/90",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         tertiary: "bg-tertiary text-white hover:bg-tertiary/50",
-        ghost: "bg-transparent hover:bg-primary/70 text-gray-700", // 👈 new variant
+        ghost: "bg-transparent hover:bg-gray-100 text-gray-700",
+        outline: "border border-input bg-transparent hover:bg-accent hover:text-accent-foreground", // added
       },
       size: {
         sm: "h-9 px-3",
         md: "h-10 px-4",
         lg: "h-11 px-6",
+        default: "h-10 px-4", // alias for md
+        "icon-sm": "h-8 w-8", // added
       },
     },
     defaultVariants: {
@@ -25,6 +28,7 @@ const buttonVariants = cva(
     },
   }
 );
+
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
