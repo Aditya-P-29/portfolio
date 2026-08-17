@@ -46,13 +46,18 @@ const Header = () => {
   ];
 
   // Smooth scroll handler for mobile
-  const handleMobileNavClick = (href: string) => {
+  const handleMobileNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    e.preventDefault();
     const targetId = href.replace("#", "");
     const target = document.getElementById(targetId);
     if (target) {
       target.scrollIntoView({ behavior: "smooth" });
     }
-    setIsMobileMenuOpen(false);
+    // Close menu after scroll
+    setTimeout(() => setIsMobileMenuOpen(false), 300);
   };
 
   return (
@@ -122,17 +127,18 @@ const Header = () => {
           >
             <nav className="container mx-auto px-4 py-4 flex flex-col gap-4">
               {menuItems.map((item) => (
-                <button
+                <a
+                  href={item.href}
                   key={item.href}
-                  onClick={() => handleMobileNavClick(item.href)}
-                  className={`text-left text-sm font-medium transition-colors ${
+                  onClick={(e) => handleMobileNavClick(e, item.href)}
+                  className={`text-sm font-medium transition-colors ${
                     activeSection === item.href.replace("#", "")
                       ? "text-primary"
                       : "text-foreground hover:text-primary"
                   }`}
                 >
                   {item.label}
-                </button>
+                </a>
               ))}
               <a
                 href="/resume/ADITYA PODDAR(resume).pdf"
