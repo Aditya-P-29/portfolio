@@ -125,7 +125,7 @@ export const projects = [
       "Node.js",
       "OpenRouter",
       "Github Actions",
-      "EC2"
+      "EC2",
     ],
     liveUrl: "https://dev-gpt-frontend.vercel.app/",
     githubUrl: "https://github.com/Aditya-P-29/devGPT-frontend",
