@@ -2,8 +2,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Mail } from "lucide-react";
-import { FaGithub } from "react-icons/fa";
+
+import { FaGithub, FaLinkedin} from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -25,13 +25,15 @@ const Hero = () => {
             the MERN stack, Next.js, and cloud infrastructure.
           </p>
           <div className="flex gap-4">
-            <Button
-              variant={"default"}
-              className="gap-2 rounded-full object-cover"
-            >
-              <Mail className="w-4 h-4" />
-              Contact Me
-            </Button>
+            <Link href="https://www.linkedin.com/in/aditya~poddar" target="_blank">
+              <Button
+                variant={"default"}
+                className="text-white gap-2 rounded-full object-cover hover:bg-primary/70"
+              >
+                <FaLinkedin size={24} color="#fff" />
+                Linkedin
+              </Button>
+            </Link>
 
             <Link href="https://github.com/Aditya-P-29" target="_blank">
               <Button

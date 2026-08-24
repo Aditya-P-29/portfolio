@@ -5,7 +5,7 @@ import Testimonial from "@/components/sections/Testimonial";
 import Projects from "@/components/sections/Projects";
 import Github from "@/components/sections/Github";
 import Contact from "@/components/sections/Contact";
-
+import Work from "@/components/sections/Work";
 
 
 export default function Home() {
@@ -13,6 +13,7 @@ export default function Home() {
     <main className="min-h-screen bg-background">
       <Hero/>
       <Skills />
+      <Work/>
       <Testimonial />
       <Projects />
       {/*Github Status section*/}
