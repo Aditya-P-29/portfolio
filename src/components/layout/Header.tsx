@@ -91,8 +91,8 @@ const Header = () => {
               </a>
             ))}
             <a
-              href="/resume/ADITYA PODDAR(resume).pdf"
-              download="Aditya_Poddar_Resume.pdf"
+              href="/resume/ADITYA PODDAR.docx"
+              download="Aditya_Poddar.docx"
               className="rounded-full flex items-center gap-2 bg-primary text-primary-foreground px-2 py-1 hover:bg-primary-hover transition-colors"
             >
               <Download className="w-4 h-4" />
@@ -141,8 +141,8 @@ const Header = () => {
                 </a>
               ))}
               <a
-                href="/resume/ADITYA PODDAR(resume).pdf"
-                download="Aditya_Poddar_Resume.pdf"
+                href="/resume/ADITYA PODDAR.docx"
+                download="Aditya_Poddar.docx"
                 className="rounded-full flex items-center gap-2 bg-primary text-primary-foreground px-2 py-1 hover:bg-primary-hover transition-colors"
               >
                 <Download className="w-4 h-4" />
