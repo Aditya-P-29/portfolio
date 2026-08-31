@@ -16,13 +16,14 @@ const Skills = () => {
       className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8  mx-4"
     >
       
-      {technologies.map((tech, index) => (
+      {/* Flatten the object into a single array to map over it */}
+      {Object.values(technologies).flat().map((tech, index) => (
         <Card
           key={index}
           className="p-2 flex flex-col items-center justify-between rounded-2xl 
-             border border-transparent hover:border-primary 
-             hover:shadow-lg hover:scale-105 
-             transition-transform duration-300 ease-in-out"
+              border border-transparent hover:border-primary 
+              hover:shadow-lg hover:scale-105 
+              transition-transform duration-300 ease-in-out"
         >
           <Image
             alt={tech.name}

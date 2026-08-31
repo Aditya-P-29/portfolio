@@ -41,14 +41,14 @@ const Work = () => {
                   </h4>
                 </div>
                 
-                <span className="flex items-center w-fit text-sm font-medium text-muted-foreground bg-secondary px-4 py-1.5 rounded-full shrink-0">
+                <span className="flex items-center w-fit text-sm font-medium text-white bg-secondary px-4 py-1.5 rounded-full shrink-0">
                   <Calendar className="w-4 h-4 mr-2" />
                   May 2025 – Present
                 </span>
               </div>
 
               {/* Responsive Bullet Points */}
-              <ul className="space-y-4 text-muted-foreground text-sm md:text-base leading-relaxed">
+              <ul className="space-y-4 text-gray-400 text-sm md:text-base leading-relaxed">
                 <li className="flex gap-3">
                   <span className="text-primary mt-0.5 shrink-0">▹</span>
                   <span>Architected and launched <strong>calculators.lol</strong>, a SaaS platform featuring 400+ analytical tools, utilizing Next.js Static Generation and Metadata API to maximize SEO and minimize latency.</span>
