@@ -28,6 +28,7 @@ export const technologies = [
       name: "Tailwind CSS",
       logo: "https://img.icons8.com/color/96/tailwindcss.png",
     },
+    
  
   
     {
