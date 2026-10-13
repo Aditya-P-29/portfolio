@@ -4,6 +4,8 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import { Toaster } from "sonner";
 import Footer from "@/components/layout/Footer";
+import LenisProvider from "@/components/layout/LenisProvider";
+
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -40,7 +42,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={inter.className}>
       <body className="min-h-screen flex flex-col">
         <Header />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1">
+          <LenisProvider>
+            {children}
+          </LenisProvider>
+          </main>
         <Footer />
         <Toaster />
       </body>

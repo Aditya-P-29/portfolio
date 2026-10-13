@@ -50,11 +50,7 @@ const frontendNames = [
   "Tailwind CSS",
 ];
 
-const backendNames = [
-  "Node.js",
-  "Express.js",
-  "Java",
-];
+const backendNames = ["Node.js", "Express.js", "Java"];
 
 /* -------------------------------------------------------------------------- */
 /*                              Skill Categories                              */
@@ -64,13 +60,11 @@ const skillCategories: SkillCategory[] = [
   {
     number: "01",
     title: "Frontend",
-    description:
-      "Building modern, responsive and interactive web experiences.",
+    description: "Building modern, responsive and interactive web experiences.",
     technologies: technologies.filter((tech) =>
       frontendNames.includes(tech.name)
     ),
   },
-
   {
     number: "02",
     title: "Backend",
@@ -80,7 +74,6 @@ const skillCategories: SkillCategory[] = [
       backendNames.includes(tech.name)
     ),
   },
-
   {
     number: "03",
     title: "Database & Cloud",
@@ -88,8 +81,7 @@ const skillCategories: SkillCategory[] = [
       "Working with databases, cloud infrastructure, deployment and DevOps.",
     technologies: technologies.filter(
       (tech) =>
-        !frontendNames.includes(tech.name) &&
-        !backendNames.includes(tech.name)
+        !frontendNames.includes(tech.name) && !backendNames.includes(tech.name)
     ),
   },
 ];
@@ -99,182 +91,58 @@ const skillCategories: SkillCategory[] = [
 /* -------------------------------------------------------------------------- */
 
 const technologyVariants: Variants = {
-  hidden: {
-    opacity: 0,
-    y: 20,
-  },
-
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
-
-    transition: {
-      duration: 1,
-      ease: [0.22, 1, 0.36, 1],
-    },
+    transition: { duration: 1, ease: [0.22, 1, 0.36, 1] },
   },
 };
+
+/* -------------------------------------------------------------------------- */
+/*                           Scroll Stack Timeline                            */
+/* -------------------------------------------------------------------------- */
+
+/*
+ * Scroll stages (exact order is preserved):
+ *
+ * 0.00 - 0.28 → Frontend is shown alone
+ * 0.28 - 0.38 → Backend slides up over Frontend
+ * 0.38 - 0.62 → Frontend + Backend hold
+ * 0.62 - 0.72 → Database & Cloud slides up over the stack
+ * 0.72 - 1.00 → Final stacked state
+ */
+const scrollPoints = [0, 0.28, 0.38, 0.62, 0.72, 1];
+
+/*
+ * Y positions per card, one value for each scroll point above.
+ *
+ * Frontend  : stays, then is pushed up a little by each new card.
+ * Backend   : waits below, rises into place, then nudges up so it
+ *             stays visible behind Database & Cloud.
+ * Database  : waits further below, then rises last and stops at +15%
+ *             so ~15% of Backend stays visible.
+ */
+const yKeyframes: string[][] = [
+  ["0%", "0%", "-22%", "-22%", "-40%", "-40%"],
+  ["115%", "115%", "0%", "0%", "-12%", "-12%"],
+  ["230%", "230%", "230%", "230%", "15%", "15%"],
+];
 
 /* -------------------------------------------------------------------------- */
 /*                                Skill Card                                  */
 /* -------------------------------------------------------------------------- */
 
-const SkillCard = ({
-  category,
-  index,
-  progress,
-}: SkillCardProps) => {
-  /*
-   * Scroll stages:
-   *
-   * 0.00 - 0.38 → Frontend
-   * 0.38 - 0.72 → Backend
-   * 0.72 - 1.00 → Database & Cloud
-   */
+const SkillCard = ({ category, index, progress }: SkillCardProps) => {
+  /* Single, unconditional hook call (rules of hooks safe). */
+  const y = useTransform(progress, scrollPoints, yKeyframes[index]);
 
-  const scrollPoints = [
-    0,
-    0.28,
-    0.38,
-    0.62,
-    0.72,
-    1,
-  ];
-
-  /* ---------------------------------------------------------------------- */
-  /*                              Y Position                                */
-  /* ---------------------------------------------------------------------- */
-
-  let y: MotionValue<string>;
-
-  if (index === 0) {
-    /*
-     * FRONTEND
-     *
-     * Initial position:
-     *      0%
-     *
-     * Backend comes over it:
-     *     -22%
-     *
-     * Database comes over the stack:
-     *     -40%
-     */
-
-    y = useTransform(
-      progress,
-      scrollPoints,
-      [
-        "0%",
-        "0%",
-        "-22%",
-        "-22%",
-        "-40%",
-        "-40%",
-      ]
-    );
-  } else if (index === 1) {
-    /*
-     * BACKEND
-     *
-     * Starts below Frontend.
-     *
-     * Moves to the main position.
-     *
-     * When Database & Cloud appears,
-     * Backend moves only slightly upward.
-     *
-     * This keeps Backend visible behind Card 3.
-     */
-
-    y = useTransform(
-      progress,
-      scrollPoints,
-      [
-        "115%",
-        "115%",
-        "0%",
-        "0%",
-        "-12%",
-        "-12%",
-      ]
-    );
-  } else {
-    /*
-     * DATABASE & CLOUD
-     *
-     * Starts below the Backend.
-     *
-     * IMPORTANT:
-     *
-     * It now stops at +15%.
-     *
-     * This means the Database card does NOT completely
-     * cover the Backend card.
-     *
-     * Around 15% of the Backend remains visible.
-     */
-
-    y = useTransform(
-      progress,
-      scrollPoints,
-      [
-        "230%",
-        "230%",
-        "230%",
-        "230%",
-        "15%",
-        "15%",
-      ]
-    );
-  }
-
-  /* ---------------------------------------------------------------------- */
-  /*                                Scale                                   */
-  /* ---------------------------------------------------------------------- */
-
-  const scale = useTransform(
-    progress,
-    [0, 1],
-    [1, 1]
-  );
-
-  /* ---------------------------------------------------------------------- */
-  /*                               Opacity                                  */
-  /* ---------------------------------------------------------------------- */
-
-  const opacity = useTransform(
-    progress,
-    [0, 1],
-    [1, 1]
-  );
-
-  /* ---------------------------------------------------------------------- */
-  /*                                Z Index                                 */
-  /* ---------------------------------------------------------------------- */
-
-  /*
-   * Permanent stacking order:
-   *
-   * Frontend       → 10
-   * Backend        → 20
-   * Database       → 30
-   */
-
+  /* Permanent stacking order: Frontend 10 → Backend 20 → Database 30 */
   const zIndex = (index + 1) * 10;
-
-  /* ---------------------------------------------------------------------- */
-  /*                                  JSX                                   */
-  /* ---------------------------------------------------------------------- */
 
   return (
     <motion.div
-      style={{
-        y,
-        scale,
-        opacity,
-        zIndex,
-      }}
+      style={{ y, zIndex }}
       className="
         absolute
         left-1/2
@@ -283,6 +151,7 @@ const SkillCard = ({
         max-w-5xl
         -translate-x-1/2
         -translate-y-1/2
+        will-change-transform
       "
     >
       <Card
@@ -300,59 +169,25 @@ const SkillCard = ({
           lg:p-10
         "
       >
-        {/* -------------------------------------------------------------- */}
-        {/* Card Header                                                     */}
-        {/* -------------------------------------------------------------- */}
-
+        {/* Card Header */}
         <div className="mb-7 flex items-center gap-4">
-          <span
-            className="
-              text-sm
-              font-semibold
-              tracking-[0.3em]
-              text-primary
-            "
-          >
+          <span className="text-sm font-semibold tracking-[0.3em] text-primary">
             {category.number}
           </span>
-
           <div className="h-px flex-1 bg-white/10" />
         </div>
 
-        {/* -------------------------------------------------------------- */}
-        {/* Card Title                                                      */}
-        {/* -------------------------------------------------------------- */}
-
+        {/* Card Title */}
         <div className="mb-8">
-          <h3
-            className="
-              text-3xl
-              font-bold
-              tracking-tight
-              md:text-4xl
-            "
-          >
+          <h3 className="text-3xl font-bold tracking-tight md:text-4xl">
             {category.title}
           </h3>
-
-          <p
-            className="
-              mt-3
-              max-w-2xl
-              text-base
-              leading-7
-              text-muted-foreground
-              md:text-lg
-            "
-          >
+          <p className="mt-3 max-w-2xl text-base leading-7 text-muted-foreground md:text-lg">
             {category.description}
           </p>
         </div>
 
-        {/* -------------------------------------------------------------- */}
-        {/* Technology Grid                                                 */}
-        {/* -------------------------------------------------------------- */}
-
+        {/* Technology Grid */}
         <div
           className="
             grid
@@ -369,18 +204,9 @@ const SkillCard = ({
               variants={technologyVariants}
               initial="hidden"
               whileInView="visible"
-              viewport={{
-                once: true,
-                amount: 0.1,
-              }}
-              whileHover={{
-                y: -5,
-                scale: 1.03,
-              }}
-              transition={{
-                duration: 0.3,
-                ease: [0.22, 1, 0.36, 1],
-              }}
+              viewport={{ once: true, amount: 0.1 }}
+              whileHover={{ y: -5, scale: 1.03 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
               className="
                 flex
                 min-h-[110px]
@@ -406,14 +232,7 @@ const SkillCard = ({
                 height={48}
                 className="object-contain"
               />
-
-              <span
-                className="
-                  text-center
-                  text-sm
-                  font-semibold
-                "
-              >
+              <span className="text-center text-sm font-semibold">
                 {tech.name}
               </span>
             </motion.div>
@@ -429,137 +248,51 @@ const SkillCard = ({
 /* -------------------------------------------------------------------------- */
 
 const Skills = () => {
-  const stackRef =
-    React.useRef<HTMLDivElement>(null);
-
-  /* ---------------------------------------------------------------------- */
-  /*                              Scroll Progress                            */
-  /* ---------------------------------------------------------------------- */
+  const stackRef = React.useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
     target: stackRef,
-
-    offset: [
-      "start start",
-      "end end",
-    ],
+    offset: ["start start", "end end"],
   });
 
-  /* ---------------------------------------------------------------------- */
-  /*                         Slow Smooth Animation                           */
-  /* ---------------------------------------------------------------------- */
-
   /*
-   * Slower spring than before.
-   *
-   * Higher mass + lower stiffness means:
-   *
-   * - slower movement
-   * - smoother transitions
-   * - less snapping
-   * - more deliberate card movement
+   * Lenis smooths the scroll itself (duration 2.4). This soft spring adds
+   * a second, gentle layer so the card movement glides instead of tracking
+   * the scroll 1:1. Lower stiffness = floatier, higher = more responsive.
    */
-
-  const smoothProgress = useSpring(
-    scrollYProgress,
-    {
-      stiffness: 35,
-      damping: 30,
-      mass: 1.2,
-    }
-  );
-
-  /* ---------------------------------------------------------------------- */
-  /*                                   JSX                                  */
-  /* ---------------------------------------------------------------------- */
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 65,
+    damping: 26,
+    mass: 0.8,
+    restDelta: 0.0005,
+  });
 
   return (
-    <section
-      id="skills"
-      className="
-        relative
-        mt-24
-      "
-    >
-      {/* ---------------------------------------------------------------- */}
-      {/* Section Heading                                                  */}
-      {/* ---------------------------------------------------------------- */}
-
+    <section id="skills" className="relative mt-24">
+      {/* Section Heading */}
       <motion.h2
-        initial={{
-          opacity: 0,
-          y: 25,
-        }}
-        whileInView={{
-          opacity: 1,
-          y: 0,
-        }}
-        viewport={{
-          once: true,
-          amount: 0.4,
-        }}
-        transition={{
-          duration: 1,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-        className="
-          px-4
-          text-center
-          text-4xl
-          font-bold
-          md:text-5xl
-        "
+        initial={{ opacity: 0, y: 25 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.4 }}
+        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+        className="px-4 text-center text-4xl font-bold md:text-5xl"
       >
-        Tech{" "}
-        <span className="text-primary">
-          Stack
-        </span>
+        Tech <span className="text-primary">Stack</span>
       </motion.h2>
 
-      {/* ---------------------------------------------------------------- */}
-      {/* Scroll Stack                                                     */}
-      {/* ---------------------------------------------------------------- */}
-
-      <div
-        ref={stackRef}
-        className="
-          relative
-          mt-10
-          h-[300vh]
-        "
-      >
-        {/* -------------------------------------------------------------- */}
-        {/* Sticky Container                                                */}
-        {/* -------------------------------------------------------------- */}
-
-        <div
-          className="
-            sticky
-            top-0
-            flex
-            h-screen
-            w-full
-            items-center
-            justify-center
-          "
-        >
-          <div
-            className="
-              relative
-              h-full
-              w-full
-            "
-          >
-            {skillCategories.map(
-              (category, index) => (
-                <SkillCard
-                  key={category.title}
-                  category={category}
-                  index={index}
-                  progress={smoothProgress}
-                />
-              )
-            )}
+      {/* Scroll Stack */}
+      <div ref={stackRef} className="relative mt-10 h-[300vh]">
+        {/* Sticky Container */}
+        <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden">
+          <div className="relative h-full w-full">
+            {skillCategories.map((category, index) => (
+              <SkillCard
+                key={category.title}
+                category={category}
+                index={index}
+                progress={smoothProgress}
+              />
+            ))}
           </div>
         </div>
       </div>
