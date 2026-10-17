@@ -148,7 +148,7 @@ export const projects = [
     ],
   },
   {
-    title: "Bharat, a freelance project",
+    title: "Custom Merchandising E-Commerce & Lead Platform",
     description:
       "I successfully delivered a freelance web application for a local business in Patna, Bihar, helping them establish their digital presence and expand customer reach.",
     image: "/testimonial.png",
